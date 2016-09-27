@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Welcome to Smart Office App"
+        android:textSize="28dip"
+        android:layout_columnSpan="4"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:text="Control Your office Appliances from here."
+        android:textSize="18dip"
+        android:layout_columnSpan="4"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:text="Press CONNECT to see the Control Button "
+        android:textSize="18dip"
+        android:layout_columnSpan="4"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/connect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CONNECT"/>
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ClEAR"/>
+
+
+</LinearLayout>
