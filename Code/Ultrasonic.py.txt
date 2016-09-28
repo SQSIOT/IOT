@@ -1,0 +1,78 @@
+
+
+#To read from TXT file
+theFile = open("Enter Distance.txt", "r")
+theInts = []
+for val in theFile.read().split():
+    theInts.append(int(val))
+theFile.close()
+#Close
+
+
+import RPi.GPIO as GPIO                      #Import GPIO library
+import time                                  #Import time library
+GPIO.setmode(GPIO.BCM)                       #Set GPIO pin numbering 
+GPIO.cleanup()
+#Defining pins numbers
+TRIG = 23                                    #Associate pin 23 to TRIG
+ECHO = 24                                    #Associate pin 24 to ECHO
+M1P = 16                                     #Motor 1 terminal 1.
+M1N = 20                                     #Motor 1 terminal 2.
+M2P = 22                                     #Motor 2 terminal 1.
+M2N = 27                                     #Motor 1 terminal 2.
+Thr = theInts[0]                            #defining the threshold distance
+
+print "Threshold", Thr,"cm"
+print "Distance measurement in progress"
+
+#Defining Pins as input or output
+GPIO.setup(M1P,GPIO.OUT)
+GPIO.setup(M1N,GPIO.OUT)
+GPIO.setup(M2P,GPIO.OUT)
+GPIO.setup(M2N,GPIO.OUT)
+GPIO.setup(TRIG,GPIO.OUT)                    #Set pin as GPIO out
+GPIO.setup(ECHO,GPIO.IN)                     #Set pin as GPIO in
+time.sleep(2)
+
+GPIO.output(M1P,GPIO.LOW)
+GPIO.output(M1N,GPIO.LOW)
+GPIO.output(M2P,GPIO.LOW)
+GPIO.output(M2N,GPIO.LOW)
+
+try:
+    while True:
+
+      GPIO.output(TRIG, False)                   #Set TRIG as LOW
+      #time.sleep(.5)
+      GPIO.output(TRIG, True)                    #Set TRIG as HIGH
+      time.sleep(0.00001)                         #Delay of 0.00001 seconds
+      GPIO.output(TRIG, False)                   #Set TRIG as LOW
+
+      timeout = time.time() + 0.05
+      while GPIO.input(ECHO)==0 and time.time() < timeout:                 #Check whether the ECHO is LOW
+        pulse_start = time.time()                #Saves the last known time of LOW pulse
+
+      timeout = time.time() + 0.05
+      while GPIO.input(ECHO)==1 and time.time() < timeout:                 #Check whether the ECHO is HIGH
+        pulse_end = time.time()                  #Saves the last known time of HIGH pulse 
+
+      pulse_duration = pulse_end - pulse_start   #Get pulse duration to a variable
+
+      distance = pulse_duration * 17150          #Multiply pulse duration by 17150 to get distance
+      distance = round(distance, 2)              #Round to two decimal point
+      if distance >= 2 and distance <= 400:       #Check whether the distance is within range
+        print "Distance:", distance
+        if distance <= Thr :
+                GPIO.output(M1P,GPIO.LOW)
+                GPIO.output(M1N,GPIO.LOW)
+                GPIO.output(M2P,GPIO.LOW)
+                GPIO.output(M2N,GPIO.LOW)
+                time.sleep(1)
+        elif distance > Thr : 
+            GPIO.output(M1P,GPIO.HIGH)
+            GPIO.output(M1N,GPIO.LOW)
+            GPIO.output(M2P,GPIO.HIGH)
+            GPIO.output(M2N,GPIO.LOW)
+
+finally:
+    GPIO.cleanup()

@@ -1,0 +1,6 @@
+theFile = open("Enter Distance.txt", "r")
+theInts = []
+for val in theFile.read().split():
+    theInts.append(int(val))
+theFile.close()
+print"Integers are",theInts[0]
