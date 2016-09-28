@@ -54,7 +54,7 @@ $Q_ToDate = $_POST['ToDate'];  // Storing Selected Value In Variable
 
 //echo $Q_LID;
 
-$g_sqlq ="select RellayLightMap.LightNumber,loginDetails.UEmpID,loginDetails.ReaderHardWareID, loginDetails.DateTime,loginDetails.type from loginDetails, EMP_REL_MAP,RellayLightMap Where loginDetails.UEmpID = EMP_REL_MAP.UEMPID AND RellayLightMap.RellayID = EMP_REL_MAP.RellayID AND RellayLightMap.LightNumber = '$Q_LID' and Convert (date,DateTime,120) between '$Q_FromDate' AND '$Q_ToDate'";
+$g_sqlq ="select EMP_REL_MAP.ReaderHWID,RellayLightMap.LightNumber,loginDetails.UEmpID,loginDetails.ReaderHardWareID, loginDetails.DateTime,loginDetails.type from loginDetails, EMP_REL_MAP,RellayLightMap Where loginDetails.UEmpID = EMP_REL_MAP.UEMPID AND RellayLightMap.RellayID = EMP_REL_MAP.RellayID AND RellayLightMap.LightNumber = '$Q_LID' and Convert (date,DateTime,120) between '$Q_FromDate' AND '$Q_ToDate'";
 
 //echo $g_sqlq;
 
@@ -74,7 +74,7 @@ $i=0;
 
 while( $g_row = sqlsrv_fetch_array($g_result) ) 
 	{
-
+	 $a[$i]['EmpHWID'] = $g_row['ReaderHWID'];
 	 $a[$i]['UEmpID'] = $g_row['UEmpID'];
 	 //Print_r ("<br>".$a[$i]['UEmpID']."</br>"); 
 	 $a[$i]['ReaderHardWareID'] = $g_row['ReaderHardWareID'];
@@ -101,13 +101,15 @@ If ( $R_count != 1)
 	//echo "If Loop";
 	for ($i=0;$i< count($a);$i++)
 		{
-			if ($a[$i]['type']=='login' && ( in_array($a[$i]['ReaderHardWareID'], array(108,114,102,116,106,110,104,112))))
+			$EMPHWIDIN = $a[$i]['EmpHWID'];
+			$EMPHWIDOUT = $EMPHWIDIN - 1;
+			if ($a[$i]['type']=='login' && ( in_array($a[$i]['ReaderHardWareID'], array($EMPHWIDIN,108,114,102,116,106,110,104,112))))
 				{
 					//echo "For If Loop";
 					$Time1 = $a[$i]['DateTime'];
 					//print_r ($Time1);
 				}
-			If($a[$i]['type']=='logout' && ( in_array($a[$i]['ReaderHardWareID'], array(109,115,103,117,107,111,105,113))))
+			If($a[$i]['type']=='logout' && ( in_array($a[$i]['ReaderHardWareID'], array($EMPHWIDOUT,109,115,103,117,107,111,105,113))))
 				{
 					If(empty($Time1))
 					{
