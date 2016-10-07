@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+     
+        <EditText
+    android:id="@+id/searchTxt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:singleLine="true"
+    android:layout_alignParentTop="true"
+    android:hint="Enter ur shop location"/>
+     
+        <fragment
+    android:id="@+id/map"
+    android:layout_below="@+id/searchTxt"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout="@layout/abc_action_bar_title_item" />
+     
+    </RelativeLayout>
