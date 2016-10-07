@@ -1,9 +1,8 @@
 <?php
 ini_set('max_execution_time', 100);
 //$serverName = "serverName\sqlexpress"; //serverName\instanceName
-//$serverName = "N6QW5CQ1";
-$serverName = "192.168.161.51";
-$connectionInfo = array( "Database"=>"IoT", "UID"=>"sa", "PWD"=>"Password123");
+//$serverName = "<serverName>";
+$connectionInfo = array( "Database"=>"<db>", "UID"=>"<UID>", "PWD"=>"<Password>");
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 if( $conn ) {
