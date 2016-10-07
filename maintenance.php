@@ -95,7 +95,7 @@ If ( $R_count != 1)
 					else
 					{
 					//echo "Light1 If Loop Logout";
-					$L1Time2 = $a[$i+1]['DateTime'];
+					$L1Time2 = $a[$i]['DateTime'];
 					$L1dteDiff  = $L1Time1->diff($L1Time2);
 					$L1H = $L1H+$L1dteDiff->format("%H");
 					$L1M = $L1M+$L1dteDiff->format("%I");
@@ -188,12 +188,12 @@ If ( $R_count != 1)
 		$L1H = $L1H*3600;
 		$L1M = $L1M*60;
 		$L1totalTimeON = ($L1H+$L1M+$L1S)/3600;
-		If ($L1totalTimeON >= 10000)
+		If ($L1totalTimeON >= 8000)
 		{
 			$L1totalTimeOFF = 0;
 		}else
 		{
-			$L1totalTimeOFF = 10000-$L1totalTimeON;
+			$L1totalTimeOFF = 8000-$L1totalTimeON;
 		}
 
 		//echo '<br>'.$L1totalTimeON.'</br>';
@@ -203,12 +203,12 @@ If ( $R_count != 1)
 		//echo $L2H; 
 		$L2M = $L2M*60;
 		$L2totalTimeON = ($L2H+$L2M+$L2S)/3600;
-		If ($L2totalTimeON >= 10000)
+		If ($L2totalTimeON >= 8000)
 		{
 			$L2totalTimeOFF = 0;
 		}else
 		{
-			$L2totalTimeOFF = 10000-$L2totalTimeON;
+			$L2totalTimeOFF = 8000-$L2totalTimeON;
 		}
 		//echo '<br>'.$L2totalTimeON.'</br>';
 		//echo '<br>'.$L2totalTimeOFF.'</br>';
@@ -217,12 +217,12 @@ If ( $R_count != 1)
 		$L3M = $L3M*60;
 		$L3totalTimeON = ($L3H+$L3M+$L3S)/3600;
 		
-		If ($L3totalTimeON >= 10000)
+		If ($L3totalTimeON >= 8000)
 		{
 			$L3totalTimeOFF = 0;
 		}else
 		{
-			$L3totalTimeOFF = 10000-$L3totalTimeON;
+			$L3totalTimeOFF = 8000-$L3totalTimeON;
 		}
 				
 		//echo '<br>'.$L3totalTimeON.'</br>';
@@ -231,39 +231,52 @@ If ( $R_count != 1)
 		$L4H = $L4H*3600;
 		$L4M = $L4M*60;
 		$L4totalTimeON = ($L4H+$L4M+$L4S)/3600;
-		If ($L4totalTimeON >= 10000)
+		If ($L4totalTimeON >= 8000)
 		{
 			$L4totalTimeOFF = 0;
 		}else
 		{
-			$L4totalTimeOFF = 10000-$L4totalTimeON;
+			$L4totalTimeOFF = 8000-$L4totalTimeON;
 		}
+		
+		//$L1totalTimeON = 8100;
+		//$L1totalTimeOFF = 0;
+		
+		//$L2totalTimeON = 8100;
+		//$L2totalTimeOFF = 0;
+		
+		//$L3totalTimeON = 8100;
+		//$L3totalTimeOFF = 0;
+		
+		//$L4totalTimeON = 8100;
+		//$L4totalTimeOFF = 0;
+		
 		
 		//echo '<br>'.$L4totalTimeON.'</br>';
 		//echo '<br>'.$L4totalTimeOFF.'</br>';
 		
-		If ($L1totalTimeON >= 10000)
+		If ($L1totalTimeON >= 8000)
 		{
 			$L1Message = "Light - 1 has completed its life span. Please change light - 1. ";
 		}else
 		{
 			$L1Message = "";
 		}
-		If ($L2totalTimeON >= 10000)
+		If ($L2totalTimeON >= 8000)
 		{
 			$L2Message = "Light - 2 has completed its life span. Please change light - 2. ";
 		}else
 		{
 			$L2Message = "";
 		}
-		If ($L3totalTimeON >= 10000)
+		If ($L3totalTimeON >= 8000)
 		{
 			$L3Message = "Light - 3 has completed its life span. Please change light - 3. ";
 		}else
 		{
 			$L3Message = "";
 		}
-		If ($L4totalTimeON >= 10000)
+		If ($L4totalTimeON >= 8000)
 		{
 			$L4Message = "Light - 4 has completed its life span. Please change the light - 4. ";
 		}else
@@ -296,7 +309,7 @@ If ( $R_count != 1)
         };
 		
 		 var chart1 = new google.visualization.PieChart(document.getElementById('piechart1'));
-        chart1.draw(data1, options1);
+         chart1.draw(data1, options1);
 	  }  
 	  
 	  
@@ -359,13 +372,19 @@ If ( $R_count != 1)
  window.onload=blinkOn;
  	function blinkOn()
 	{
-	  document.getElementById("blink").style.color="#CCC"
+	  document.getElementById("blink1").style.color="#000"
+	  document.getElementById("blink2").style.color="#000"
+	  document.getElementById("blink3").style.color="#000"
+	  document.getElementById("blink4").style.color="#000"
 	  setTimeout("blinkOff()",1000)
 	}
 	 
 	function blinkOff()
 	{
-	  document.getElementById("blink").style.color=""
+	  document.getElementById("blink1").style.color=""
+	  document.getElementById("blink2").style.color=""
+	  document.getElementById("blink3").style.color=""
+	  document.getElementById("blink4").style.color=""
 	  setTimeout("blinkOn()",1000)
 	}
 </script>
@@ -380,16 +399,16 @@ If ( $R_count != 1)
 	<td width="50%" height="250"><div id="piechart2" style="width:100%; height:100%;"></div></td>
   </tr>
   <tr>
-  	<td><font size="3" color="red"><div id="blink"><?=$L1Message?></div></font></td>
-	<td><font size="3" color="red"><div id="blink"><?=$L2Message?></div></font></td>
+  	<td><font size="3" color="red"><div id="blink1"><?=$L1Message?></div></font></td>
+	<td><font size="3" color="red"><div id="blink2"><?=$L2Message?></div></font></td>
   </tr>
     <tr>
     <td width="50%" height="250"><div id="piechart3" style="width:100%; height:100%;"></div></td>
 	<td width="50%" height="250"><div id="piechart4" style="width:100%; height:100%;"></div></td>
   </tr>
   <tr>
-  	<td><font size="3" color="red"><div id="blink"><?=$L3Message?></div></font></td>
-	<td><font size="3" color="red"><div id="blink"><?=$L4Message?></div></font></td>
+  	<td><font size="3" color="red"><div id="blink3"><?=$L3Message?></div></font></td>
+	<td><font size="3" color="red"><div id="blink4"><?=$L4Message?></div></font></td>
   </tr>
 </table>
 </body>
