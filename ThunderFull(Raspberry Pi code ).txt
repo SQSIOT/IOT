@@ -1,0 +1,54 @@
+def printAccr(handle, value):
+   mess_Accr = 'Acceleration from handle {} : {}\n'.format(hex(handle), hexlify(str(value)))
+   print mess_Accr
+   sock.sendall(mess_Accr)
+
+def printOrien(handle, value):
+   mess_Orien = 'Orientation from handle {} : {}\n'.format(hex(handle), hexlify(str(value)))
+   print mess_Orien
+   sock.sendall(mess_Orien)
+
+import socket
+import sys
+import pygatt.backends
+import time
+from binascii import hexlify
+
+adapter = pygatt.backends.GATTToolBackend()
+adapter.start()
+# wait for someone to step on the scale
+while True:
+    try:
+        device = adapter.connect('00:0B:57:0C:24:23')
+        break
+    except pygatt.exceptions.NotConnectedError:
+        print('Waiting...')
+
+
+device.subscribe('c4c1f6e2-4be5-11e5-885d-feff819cdc9f', callback = printAccr, indication = True)
+device.subscribe('b7c4b694-bee3-45dd-ba9f-f3b5e994f49a', callback = printOrien, indication = True)
+
+
+# Create a TCP/IP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Connect the socket to the port where the server is listening
+server_address = ('192.168.164.242', 10001)
+print server_address
+print >>sys.stderr, 'connecting to %s port %s' % server_address
+sock.connect(server_address)
+
+
+
+
+try:
+    device.char_write_handle(0x37,[01], True)
+    device.char_write_handle(0x3a,[01], True)
+except pygatt.exceptions.NotificationTimeout:
+    pass
+
+time.sleep(10)
+device.disconnect()
+adapter.stop()
+sock.close()
+
