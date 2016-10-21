@@ -258,7 +258,7 @@ class OBDPort:
                 if val==0: #skip fill of last packet
                   break
                    
-                DTCStr=dtcLetters[(val&0xC000)>14]+str((val&0x3000)>>12)+str((val&0x0f00)>>8)+str((val&0x00f0)>>4)+str(val&0x000f)
+                DTCStr=dtcLetters[(val&0xC000)>>14]+str((val&0x3000)>>12)+str((val&0x0f00)>>8)+str((val&0x00f0)>>4)+str((val&0x000f)>>2)
                 
                 DTCCodes.append(["Active",DTCStr])
           
@@ -278,7 +278,7 @@ class OBDPort:
               if val==0: #skip fill of last packet
                 break
                    
-              DTCStr=dtcLetters[(val&0xC000)>14]+str((val&0x3000)>>12)+str((val&0x0f00)>>8)+str((val&0x00f0)>>4)+str(val&0x000f)
+              DTCStr=dtcLetters[(val&0xC000)>>14]+str((val&0x3000)>>12)+str((val&0x0f00)>>8)+str((val&0x00f0)>>4)+str((val&0x000f)>>2)
               DTCCodes.append(["Passive",DTCStr])
               
           return DTCCodes
