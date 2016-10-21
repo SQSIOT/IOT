@@ -5,17 +5,17 @@
 #include <ESP8266WebServer.h>
 
 //Username and password
-const char* ssid = "SQS";
-const char* password = "d0n773llN0On3";
+const char* ssid = "";
+const char* password = "";
 int value = HIGH;
 
 
 //SQS Information
-IPAddress ip(192, 168, 163, 150);   
-IPAddress gateway(192, 168, 160, 1); 
-IPAddress subnet(255,255,255,0); 
-IPAddress dns1(192, 168, 192,4); 
-IPAddress dns2(192, 168, 70,58);
+IPAddress ip(, , , );   
+IPAddress gateway(,, ,); 
+IPAddress subnet(,,,); 
+IPAddress dns1(, , ,); 
+IPAddress dns2(, , ,);
 
 //Pins to trigger relays
 #define D1  16
