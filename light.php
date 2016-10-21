@@ -2,8 +2,9 @@
 
 ini_set('max_execution_time', 100);
 //$serverName = "serverName\sqlexpress"; //serverName\instanceName
-//$serverName = "<serverName>";
-$connectionInfo = array( "Database"=>"<db>", "UID"=>"<UID>", "PWD"=>"<Password>");
+$serverName = "VIRTUALADMIN-PC";
+//$serverName = "192.168.1.5";
+$connectionInfo = array( "Database"=>"IoT", "UID"=>"sa", "PWD"=>"Password123");
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 if( $conn ) {
@@ -71,7 +72,18 @@ If (!empty($_POST['DateOption']))
 	{
 		If (!empty($_POST['FromDate']))
 			{
-				$Q_FromDate = $_POST['FromDate'];  // Storing Selected Value In Variable
+				$Format = "Y-m-d";
+				$From_Date_IN= $_POST['FromDate'];
+				$From_Date_Vali = DateTime::createfromformat($Format,$From_Date_IN);
+				If (!$From_Date_Vali)
+				{
+					$FromDate_Err = "Please add From Date in YYYY-MM-DD format.";
+				}
+				else
+				{
+					$Q_FromDate = $From_Date_Vali;
+				}
+				 
 			}
 			else
 			{
@@ -367,11 +379,22 @@ If ( $R_count != 1)
 		</tr>
 		<tr  height="2">
 		  <td> Wattage Consumed</td>
-		  <td><?=round($totalTimeON*5,2)?> Watt</td>
+		  <td><?=round($totalTimeON*15,2)?> Watt</td>
 		</tr>
 		<tr  height="2">
 		  <td>Remaining Life Span</td>
-		  <td><?=round(8000-$totalTimeON,2)?></td>
+		  <td><?php If($totalTimeON > 0)
+						{
+							$Lifespan = round(8000-$totalTimeON,2); 
+						}
+					else 
+						{ 
+							$Lifespan = 0; 
+						}
+						
+						echo $Lifespan;
+				?>
+		  </td>
 		</tr>
 		<tr  height="2">
 		  <td>Quality of Bulb</td>
