@@ -139,4 +139,3 @@ try:
 
 finally:
     cv2.destroyAllWindows()
-  
