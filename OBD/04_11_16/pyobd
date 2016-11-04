@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-
 #import wxversion
 #wxversion.select("2.6")
 import wx
@@ -145,12 +143,12 @@ class MyApp(wx.App):
                 curstate=self._nb.GetSelection()
                 if curstate==0: #show status tab
                   pass
-                elif curstate==1: #show tests tab
-                  res=self.port.get_tests_MIL()                
-                  for i in range(0,len(res)):
-                    wx.PostEvent(self._notify_window, TestEvent([i,1,res[i]]))
-                
-                elif curstate==2: #show sensor tab
+                #elif curstate==1: #show tests tab
+                  #res=self.port.get_tests_MIL()                
+                  #for i in range(0,len(res)):
+                   # wx.PostEvent(self._notify_window, TestEvent([i,1,res[i]]))
+                    
+                elif curstate==1: #show sensor tab
                   for i in range(3, len(self.active)):
                       if self.active[i]:
                           s = self.port.sensor(i)
@@ -175,11 +173,12 @@ class MyApp(wx.App):
                       self._notify_window.ThreadControl=0
                   if prevstate!=3: 
                     wx.PostEvent(self._notify_window, DTCEvent(0)) #clear list
-                    DTCCodes=self.port.get_dtc()
+                    DTCCodes = self.port.get_dtc()
                     if len(DTCCodes)==0:
                       wx.PostEvent(self._notify_window, DTCEvent(["","","No DTC codes (codes cleared)"]))
-                    for i in range (0,len(DTCCodes)):
-                      wx.PostEvent(self._notify_window, DTCEvent([DTCCodes[i][1],DTCCodes[i][0],pcodes[DTCCodes[i][1]]]))   
+                    else:  
+                        for i in range (0,len(DTCCodes)):
+                            wx.PostEvent(self._notify_window, DTCEvent([DTCCodes[i][1],DTCCodes[i][0],pcodes[DTCCodes[i][1]]]))   
                 else:
                  pass 
             self.stop()
@@ -335,7 +334,7 @@ class MyApp(wx.App):
         else:
           self.configfilepath=os.environ['HOME']+'/.pyobdrc'
         if self.config.read(self.configfilepath)==[]:
-          self.COMPORT="/dev/ttyACM0"
+          self.COMPORT="/dev/rfcomm0"
           self.RECONNATTEMPTS=5
           self.SERTIMEOUT=2
         else:
@@ -368,7 +367,7 @@ class MyApp(wx.App):
         self.OBDTests = self.MyListCtrl(self.nb, tID,style=wx.LC_REPORT|wx.SUNKEN_BORDER)
         self.OBDTests.InsertColumn(0, "Description",width=200)
         self.OBDTests.InsertColumn(1, "Value")
-        self.nb.AddPage(self.OBDTests, "Tests")
+        #self.nb.AddPage(self.OBDTests, "Tests")
                 
         for i in range(0,len(ptest)): #fill MODE 1 PID 1 test description 
           self.OBDTests.Append([ptest[i],"---"]);
@@ -409,8 +408,8 @@ class MyApp(wx.App):
         self.menuBar = wx.MenuBar()
         self.menuBar.Append(self.filemenu,"&File") # Adding the "filemenu" to the MenuBar
         self.menuBar.Append(self.settingmenu,"&OBD-II")
-        self.menuBar.Append(self.dtcmenu,"&Trouble codes")
-        self.menuBar.Append(self.helpmenu,"&Help")
+        #self.menuBar.Append(self.dtcmenu,"&Trouble codes")
+        #self.menuBar.Append(self.helpmenu,"&Help")
         
         frame.SetMenuBar(self.menuBar)  # Adding the MenuBar to the Frame content.
         
@@ -434,7 +433,7 @@ class MyApp(wx.App):
         return True
 
     def OnHelpVisit(self,event):
-        webbrowser.open("http://www.obdtester.com/pyobd")
+        webbrowser.open("http://www.google.com")
     
     def OnHelpOrder(self,event):
         webbrowser.open("http://www.obdtester.com/order")
@@ -529,7 +528,9 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
 
         root = tree.AddRoot("Code Reference")
         proot = tree.AppendItem(root,"Powertrain (P) Codes")
-        codes = obd_io.pcodes.keys()
+        codes = pcodes.keys()
+        print "codelookup codes =" ,codes
+        #codes = pcodes.keys()
         codes.sort()
         group = ""
         for c in codes:
@@ -582,13 +583,13 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
         id = 0
         diag = wx.Dialog(self.frame, id, title="Configure")
         sizer = wx.BoxSizer(wx.VERTICAL)
-        
+        #sizer = wx.BoxSizer(wx.HORIZONTAL)
         ports = scanSerial()
-        rb = wx.RadioBox(diag, id, "Choose Serial Port",
+        rb = wx.RadioBox(diag, id, "Port",
                         choices = ports, style = wx.RA_SPECIFY_COLS,
-                        majorDimension = 2)
+                        majorDimension = 3)
                         
-        sizer.Add(rb, 0)
+        sizer.Add(rb, 1)
 
         #timeOut input control                
         timeoutPanel = wx.Panel(diag, -1)
@@ -602,18 +603,18 @@ the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  0211
         reconnectStatic = wx.StaticText(reconnectPanel,-1,'Reconnect attempts:',pos=(3,5),size=(140,20))
         reconnectCtrl.SetValue(str(self.RECONNATTEMPTS))
         
-        #web open link button
-        self.OpenLinkButton = wx.Button(diag,-1,"Click here to order ELM-USB interface",size=(260,30))
-        diag.Bind(wx.EVT_BUTTON,self.OnHelpOrder,self.OpenLinkButton)
+        ##web open link button
+        #self.OpenLinkButton = wx.Button(diag,-1,"Click here to order ELM-USB interface",size=(260,30))
+        #diag.Bind(wx.EVT_BUTTON,self.OnHelpOrder,self.OpenLinkButton)
         
         #set actual serial port choice
         if (self.COMPORT != 0) and (self.COMPORT in ports):
           rb.SetSelection(ports.index(self.COMPORT))
         
         
-        sizer.Add(self.OpenLinkButton)
-        sizer.Add(timeoutPanel,0)
-        sizer.Add(reconnectPanel,0)
+        #sizer.Add(self.OpenLinkButton)
+        #sizer.Add(timeoutPanel,0)
+        #sizer.Add(reconnectPanel,0)
         
         box  = wx.BoxSizer(wx.HORIZONTAL)
         box.Add(wx.Button(diag,wx.ID_OK),0)
