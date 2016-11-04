@@ -152,4 +152,3 @@ try:
 finally:
     cv2.destroyAllWindows()
     GPIO.cleanup()
-    
