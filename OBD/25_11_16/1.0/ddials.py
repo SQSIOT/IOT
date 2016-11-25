@@ -39,41 +39,41 @@ monitorY = pygame.display.Info().current_h
 #surface2Y = surface2WindowedY
 
 #coolent temp
-surface3FullscreenX = (monitorX / 2) + 0
-surface3FullscreenY = (monitorY / 2) - 240
-
-surface3WindowedX = (width / 2) - 0
-surface3WindowedY = (height / 2) - 290
+surface3FullscreenX = (monitorX / 2) - 310#+ 0
+surface3FullscreenY = (monitorY / 2) + 60#- 240
+ 
+surface3WindowedX = (width / 2) - 310#- 0
+surface3WindowedY = (height / 2) + 10#- 290
 
 surface3X = surface3WindowedX
 surface3Y = surface3WindowedY
 
 #fuel
-surface4FullscreenX = (monitorX / 2) + 310
-surface4FullscreenY = (monitorY / 2) - 240
+surface4FullscreenX = (monitorX / 2) + 10 #+ 310
+surface4FullscreenY = (monitorY / 2) + 60#- 240
 
-surface4WindowedX = (width / 2) - 310
-surface4WindowedY = (height / 2) - 290
+surface4WindowedX = (width / 2) + 10#- 310
+surface4WindowedY = (height / 2) + 10#- 290
 
 surface4X = surface4WindowedX
 surface4Y = surface4WindowedY
 
 #rpm
-surface5FullscreenX = (monitorX / 2) - 310
-surface5FullscreenY = (monitorY / 2) + 60
+surface5FullscreenX = (monitorX / 2) + 310 #- 310
+surface5FullscreenY = (monitorY / 2) - 240#+ 60
 
 surface5WindowedX = (width / 2) - 310
-surface5WindowedY = (height / 2) + 10    ##to horizontal
+surface5WindowedY = (height / 2) - 290#+ 10    ##to horizontal
 
 surface5X = surface5WindowedX
 surface5Y = surface5WindowedY
 
 #speed
-surface6FullscreenX = (monitorX / 2) + 10
-surface6FullscreenY = (monitorY / 2) + 60
+surface6FullscreenX = (monitorX / 2) + 0#+ 10
+surface6FullscreenY = (monitorY / 2) - 240#+ 60
 
-surface6WindowedX = (width / 2) + 10
-surface6WindowedY = (height / 2) + 10   ##to horizontal
+surface6WindowedX = (width / 2) - 0#+ 10
+surface6WindowedY = (height / 2) - 290#+ 10   ##to horizontal
 
 surface6X = surface6WindowedX
 surface6Y = surface6WindowedY
@@ -201,7 +201,7 @@ def ddial_rpm(data):
     
 def ddial_mph(data):
     dd.Dials(needleDestination=surface6,
-                needleValue=data,startPosition=-45,endPosition=45,maximumValue=40,
+                needleValue=data,startPosition=-45,endPosition=45,maximumValue=10,
                 dialType=dd.volt,dialLabel="Speed",backgroundColour=(0,0,81),displayCircle=True,foregroundColour=(255,255,255))
     screen.blit(surface6,(surface6X,surface6Y))
     pygame.display.update()

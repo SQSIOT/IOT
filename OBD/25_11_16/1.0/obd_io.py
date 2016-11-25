@@ -7,12 +7,14 @@ import string
 import time
 from math import ceil
 from datetime import datetime
-import ddials
+#import ddials
 from ddials import ddial_rpm
 from ddials import ddial_temp
 from ddials import ddial_mph
 from ddials import ddial_fuel
-import obd_sensors 
+import obd_sensors
+
+import ddials
 
 from obd_sensors import hex_to_int
 
@@ -98,9 +100,9 @@ class OBDPort:
          debug_display(self._notify_window, 2, "atz response:" + self.ELMver)
          self.send_command("ate0")  # echo off
          debug_display(self._notify_window, 2, "ate0 response:" + self.get_result())
-         self.send_command("0100")
+         self.send_command("0120")
          ready = self.get_result()
-         
+         #ready = 'SEARCHING...41 00 BE 3E A8 13'
          if(ready is None):
             self.State = 0
             return None

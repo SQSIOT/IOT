@@ -29,7 +29,7 @@ sixty = pygame.font.SysFont("Free Sans", 60)
 
 percent = u'\N{PERCENT SIGN}'
 millivolt = 'mV'
-volt = 'MPH'
+volt = 'Kmph'
 rpm = 'RPM'
 degree = u"\u00B0"
 

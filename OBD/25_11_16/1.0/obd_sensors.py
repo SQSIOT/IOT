@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-
+#global mps
+#global rpm_e
 
 def hex_to_int(str):
     #print 'string name inside int:' ,str
@@ -20,11 +21,13 @@ def intake_m_pres(code): # in kPa
   
 def rpm(code):
     code = hex_to_int(code)
+    #rpmm = code / 4
     return code / 4
 
 def speed(code):
     code = hex_to_int(code)
-    return code / 1.609
+    #mps = (code* 1000 / 60)/ 60
+    return code #/ 1.609
 
 def percent_scale(code):
     code = hex_to_int(code)
@@ -83,6 +86,13 @@ def dtc_decrypt(code):
     
     return res
     #return "#"
+#########################
+#def gear_ratio(code):
+ #   rpm_w = (mps/ 0.381)* 2 * 3.142 * 60
+  #  gear_r= rpmm/ rpm_w
+   # code = hex_to_int(code)
+    #return gear_r
+#########################
 
 def hex_to_bitstring(str):
     bitstring = ""
@@ -133,15 +143,15 @@ SENSORS = [
     Sensor("fuel_pressure"         , "FuelRail Pressure"			, "010A" , cpass            ,""       ),
     Sensor("manifold_pressure"     , "Intk Manifold"				, "010B" , intake_m_pres    ,"psi"    ),
     Sensor("rpm"                   , "Engine RPM"				, "010C1", rpm              ,""       ),
-    Sensor("speed"                 , "Vehicle Speed"				, "010D1", speed            ,"MPH"    ),
+    Sensor("speed"                 , "Vehicle Speed"				, "010D1", speed            ,"km/h"   ),
     Sensor("timing_advance"        , "Timing Advance"				, "010E" , timing_advance   ,"degrees"),
     Sensor("intake_air_temp"       , "Intake Air Temp"				, "010F" , temp             ,"F"      ),
     Sensor("maf"                   , "AirFlow Rate(MAF)"			, "0110" , maf              ,"lb/min" ),
-    Sensor("throttle_pos"          , "Throttle Position"			, "0111", throttle_pos     ,"%"      ),
+    Sensor("throttle_pos"          , "Throttle Position"			, "0111", throttle_pos     ,"%"       ),
     Sensor("secondary_air_status"  , "2nd Air Status"				, "0112" , cpass            ,""       ),
     Sensor("o2_sensor_positions"   , "Loc of O2 sensors"			, "0113" , cpass            ,""       ),
     Sensor("o211"                  , "O2 Sensor: 1 - 1"				, "0114" , fuel_trim_percent,"%"      ),
-    Sensor("o212"                  , "O2 Sensor: 1 - 2"				, "0115" , fuel_trim_percent,"%"      ),
+    Sensor("o212"                  , "Gear Position"				, "0115" , fuel_trim_percent,"%"      ),
     Sensor("o213"                  , "O2 Sensor: 1 - 3"				, "0116" , fuel_trim_percent,"%"      ),
     Sensor("o214"                  , "O2 Sensor: 1 - 4"				, "0117" , fuel_trim_percent,"%"      ),
     Sensor("o221"                  , "O2 Sensor: 2 - 1"				, "0118" , fuel_trim_percent,"%"      ),
