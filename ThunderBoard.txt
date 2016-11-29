@@ -1,0 +1,43 @@
+import sys
+import bluetooth
+
+#THUNDER_BOARD_REACT_UUID_STRING = "cef797da-2e91-4ea4-a424-f45082ac0682";
+
+#UUID_SERVICE_BATTERY = fromString("0000180f-0000-1000-8000-00805f9b34fb"),
+#UUID_SERVICE_AUTOMATION_IO = fromString("00001815-0000-1000-8000-00805f9b34fb"),
+#UUID_SERVICE_CSC = fromString("00001816-0000-1000-8000-00805f9b34fb"),
+#UUID_SERVICE_ENVIRONMENT_SENSING = fromString("0000181a-0000-1000-8000-00805f9b34fb"),
+#UUID_SERVICE_ACCELERATION_ORIENTATION = fromString("a4e649f4-4be5-11e5-885d-feff819cdc9f"),
+#UUID_SERVICE_AMBIENT_LIGHT = fromString("d24c4f4e-17a7-4548-852c-abf51127368b"),
+#UUID_CHARACTERISTIC_BATTERY_LEVEL = fromString("00002a19-0000-1000-8000-00805f9b34fb"), // Battery Service
+#UUID_CHARACTERISTIC_CSC_CONTROL_POINT = fromString("00002a55-0000-1000-8000-00805f9b34fb"), // CSC Service
+#UUID_CHARACTERISTIC_CSC_MEASUREMENT = fromString("00002a5b-0000-1000-8000-00805f9b34fb"),
+#UUID_CHARACTERISTIC_HUMIDITY = fromString("00002a6f-0000-1000-8000-00805f9b34fb"), // Environment Service
+#UUID_CHARACTERISTIC_TEMPERATURE = fromString("00002a6e-0000-1000-8000-00805f9b34fb"),
+#UUID_CHARACTERISTIC_UV_INDEX = fromString("00002a76-0000-1000-8000-00805f9b34fb"),
+#UUID_CHARACTERISTIC_AMBIENT_LIGHT = fromString("c8546913-bfd9-45eb-8dde-9f8754f4a32e"), // Ambient Light Service
+#UUID_CHARACTERISTIC_ACCELERATION = fromString("c4c1f6e2-4be5-11e5-885d-feff819cdc9f"), // Accelarion and Orientation Service
+#UUID_CHARACTERISTIC_ORIENTATION = fromString("b7c4b694-bee3-45dd-ba9f-f3b5e994f49a"),
+
+service_matches = bluetooth.find_service( uuid = uuid )
+
+#bluetooth.advertise_service( sock, name, uuid )
+#bluetooth.stop_advertising( sock )
+#bluetooth.find_service( name = None, uuid = None, bdaddr = None )
+
+if len(service_matches) == 0:
+    print "couldn't find the FooBar service"
+    sys.exit(0)
+
+first_match = service_matches[0]
+port = first_match["port"]
+name = first_match["name"]
+host = first_match["host"]
+
+print "connecting to \"%s\" on %s" % (name, host)
+
+sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+sock.connect((host, port))
+value = sock.recv(32)
+print value
+sock.close()
