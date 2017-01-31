@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">OBD2 Car DashBoard</string>
+    <string name="Server11">RPM      :</string>
+    <string name="Server21">SPEED    :</string>
+    <string name="Server31">MIL      :</string>
+    <string name="Server41">VIN      :</string>
+    <string name="Server51">LAT      :</string>
+    <string name="Server61">LONG     :</string>
+    <string name="Server71">ALT      :</string>
+    <string name="Server81">COOL.TEMP:</string>
+    <string name="Server91">AIR.TEMP :</string>
+    <string name="date">DATE</string>
+    <string name="time">TIME</string>
+    <string name="Server101">DEPT.TIME :</string>
+    <string name="Server111">IDLE.TIME :</string>
+    <string name="Server121">JOUR.TIME :</string>
+    <string name="Hello">Waiting</string>
+
+</resources>
