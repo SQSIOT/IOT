@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Login"
+            android:title="Login" />
+        <item
+            android:id="@+id/nav_Technologies"
+            android:title="Technologies" />
+        <item
+            android:id="@+id/nav_Paper"
+            android:title="Paper" />
+        <item
+            android:id="@+id/nav_JobPortal"
+
+           android:title="Job Portal" />
+        <item
+            android:id="@+id/nav_Facebook"
+
+            android:title="Facebook" />
+
+        <item
+            android:id="@+id/nav_SQSWebsite"
+
+            android:title="SQS Website" />
+
+        <item
+        android:id="@+id/nav_LinkedIn"
+
+        android:title="LinkedIn" />
+
+        <item
+            android:id="@+id/nav_AboutUs"
+
+            android:title="About Us" />
+
+        <item
+            android:id="@+id/nav_ContactUs"
+
+            android:title="Contact Us" />
+        <item
+            android:id="@+id/nav_Googlemaps"
+
+            android:title="Google maps" />
+
+
+
+
+
+
+
+
+    </group>
+
+
+
+
+</menu>

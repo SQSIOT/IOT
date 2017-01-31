@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.hagawanet.navigationapp"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="24" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="com.android.tools.fd.runtime.BootstrapApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ogo"
+        android:label="SQS APP"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.hagawanet.navigationapp.MainActivity"
+            android:label="SQS APP" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.hagawanet.navigationapp.L2CWebView" />
+        <activity android:name="com.example.hagawanet.navigationapp.LoginActivity" />
+        <activity android:name="com.example.hagawanet.navigationapp.Main2Activity" />
+        <activity android:name="com.example.hagawanet.navigationapp.hrdesksqs" />
+        <activity android:name="com.example.hagawanet.navigationapp.request" />
+        <activity android:name="com.example.hagawanet.navigationapp.socialsqs" />
+    </application>
+
+</manifest>

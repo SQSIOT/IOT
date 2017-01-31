@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:text="Requests"
+        android:layout_weight="0.03"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
+        android:text="Cab Request"
+        android:id="@+id/button1"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignStart="@+id/textView1"
+        android:layout_alignRight="@+id/editText"
+        android:layout_alignEnd="@+id/editText" />
+    <Button
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
+        android:text="ASQ"
+        android:id="@+id/button2"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignStart="@+id/textView1"
+        android:layout_alignRight="@+id/editText"
+        android:layout_alignEnd="@+id/editText" />
+    <Button
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
+        android:text="LMS"
+        android:id="@+id/button3"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignStart="@+id/textView1"
+        android:layout_alignRight="@+id/editText"
+        android:layout_alignEnd="@+id/editText" />
+    <Button
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
+        android:text="Trainings"
+        android:id="@+id/button4"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignStart="@+id/textView1"
+        android:layout_alignRight="@+id/editText"
+        android:layout_alignEnd="@+id/editText" />
+
+
+
+</LinearLayout>
