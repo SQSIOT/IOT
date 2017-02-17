@@ -1,0 +1,27 @@
+//C hello world example
+#include <stdio.h>
+void func(int,int);
+int main(void)
+{
+  int a,b,c,d;
+  a = 10;
+  b = 5;
+  printf("Hello world\n", &a);
+  c = func(a,b);
+  d = func1(c,b);
+  return 0;
+}
+
+int func(int a,int b)
+{
+	int c;
+	c = b;
+	return c;
+}
+
+int func1(int c,int d)
+{
+	int e;
+	e = c + d;
+	return e;
+}
