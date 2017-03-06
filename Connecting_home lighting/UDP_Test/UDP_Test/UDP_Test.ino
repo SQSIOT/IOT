@@ -1,0 +1,249 @@
+#include <ESP8266WiFi.h>
+
+const char* ssid = "SQS";
+const char* password = "d0n773llN0On3";
+
+IPAddress ip(192, 168, 163, 150);   
+IPAddress gateway(192, 168, 160, 1); 
+IPAddress subnet(255,255,224,0); 
+IPAddress dns1(192, 168, 192,4); 
+IPAddress dns2(192, 168, 70,58); 
+
+#define D0  16
+#define D1  5
+#define D2  4
+#define D3  0
+#define D4  2
+#define D5  14
+#define D6  12
+#define D7  13
+#define INPSIZE 37
+// Create an instance of the server
+// specify the port to listen on as an argument
+WiFiServer server(80);
+
+
+
+String WEB = "";
+int id, hw, logs;
+int Row = 5,Col= 4;
+int list[6][5] = {
+  { 52315,  51506,  52379,  52378         },                //EmpID
+  { 23,     23,     23,     23            },                //HardwareID 23 in 22 out
+  { 0,      0,      0,      0             },                //Logs
+  { D0,     D1,     D2,     D5            },                //Devices
+  { 0,      0,      0,      0             },                //Warnings (Max 3)
+  { 0,      0,      0,      0             },                //Blocked IDs
+};
+
+void putList(int fid, int fhw, int flogs)                   //Update list
+{
+  int x,cid=0;
+  for (x = 0; x <= Col; x++)                                //loop the list
+  {
+    if (list[0][x] == fid )                                 //check IDs
+    {
+      cid=1;
+      if(list[1][x] == fhw)
+      {
+        if(flogs)                                           //check Input Log
+        {
+          if(list[2][x])                                    //check Logs
+          {
+            list[4][x] = list [4][x] + 1;                   //Increase Warning and Display
+            Serial.print("Warning no. ");           
+            Serial.print(list[4][x]);
+            Serial.print(" to EmpID ");
+            Serial.println(list[0][x]);
+            list[2][x] = 1;                                 //Update Logs
+            if(list[4][x] >= 2 )                            //check no. of warnings
+            {
+              list[5][x] = 1;                               //Block the ID
+              list[2][x] = 0;     
+              Serial.println("Blocked For tailgating , Reset");
+            }
+          }
+          else
+          {
+            if(list[5][x]!= 1)                              //If not blocked ,Reset no. of warnings
+            {
+              list[4][x] = 0;
+              list[2][x] = 1;                               //Update Logs
+            }
+          }          
+        }
+        else
+        {
+          list[2][x] = 0;                                   //update Logs
+        }
+      
+      }
+      else
+      {
+        list[2][x] = 0;                                     //update Logs
+      }
+    }   
+  }
+  if(cid == 0)
+  {
+    Serial.println("You are tring to access an restricted area");
+    Serial.println("Please contact Admin or your Manager"); 
+  }
+}
+
+void ListEmpty()                                            //Update devices
+{ 
+  int x, y, dev, check;                                     //variables
+
+
+  for (x = 0; x <= Row; x++)                                //loop through list
+  {
+
+
+    dev = list[3][x];                                       //Get the relay no.
+    check = 0;                                              //reset the check per relay
+    for (y = 0; y <= Row; y++)                              //loop again with the device no.
+    {
+      if (dev == list[3][y])                                //Check more IDs with same devices
+      {
+        if (list[2][y])
+        {
+          check = 1;
+        }
+      }
+    }
+    if (check == 1)
+    {
+      digitalWrite(dev, HIGH);
+    }
+    else
+    {
+      digitalWrite(dev, LOW);
+    }
+
+  }
+
+}
+
+
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println();
+  Serial.print("Configuring access point...");
+  delay(10);
+
+
+  pinMode(D0, OUTPUT);
+  pinMode(D1, OUTPUT);
+  pinMode(D2, OUTPUT);
+  pinMode(D3, OUTPUT);
+  pinMode(D4, OUTPUT);
+  pinMode(D5, OUTPUT);
+  pinMode(D6, OUTPUT);
+  pinMode(D7, OUTPUT);
+  pinMode(D8, OUTPUT);
+
+  digitalWrite(D0, LOW);
+  digitalWrite(D1, LOW);
+  digitalWrite(D2, LOW);
+  digitalWrite(D3, LOW);
+  digitalWrite(D4, LOW);
+  digitalWrite(D5, LOW);
+  digitalWrite(D6, LOW);
+  digitalWrite(D7, LOW);
+  digitalWrite(D8, LOW);
+
+  WEB += "<h1>ESP8266 WEB</h1>";
+  
+
+
+  // Connect to WiFi network
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  
+  WiFi.config(ip,gateway,subnet,dns1,dns2);
+
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) 
+  {
+    Serial.print(".");
+    WiFi.begin(ssid, password);
+    delay(15000);
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+
+  // Start the server
+  server.begin();
+  Serial.println("Server started");
+
+  // Print the IP address
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {
+
+
+
+  // Check if a client has connected
+  WiFiClient client = server.available();
+  if (!client) 
+  {
+    return;
+  }
+
+  // Wait until the client sends some data
+  //Serial.println("new client");
+  while (!client.available()) 
+  {
+    delay(1);
+  }
+
+  // Read the first line of the request
+  String req = client.readStringUntil('\r');
+  Serial.println(req);
+
+
+  int index = req.indexOf('/');
+  String UEmpIDS = req.substring(index + 1, index + 7);
+  String HDWRS   = req.substring(index + 7, index + 9);
+
+
+  id = UEmpIDS.toInt();
+  hw = HDWRS.toInt();
+  Serial.println(id);
+  Serial.println(hw);
+  if (req.indexOf("login") != -1)
+  {
+    logs = 1;
+    //Serial.println("Login");
+  }
+  else if (req.indexOf("logout") != -1)
+  {
+    //Serial.println("Logout");
+    logs = 0;
+  }
+  else
+  {
+    logs = 0;
+    Serial.println("Logout");
+  }
+  Serial.println(logs);
+  putList(id, hw, logs);
+  ListEmpty();
+  Serial.println(".");
+
+  // Send the response to the client
+  client.print(WEB);
+  client.flush();
+  delay(1);
+
+  // The client will actually be disconnected
+  // when the function returns and 'client' object is detroyed
+}
+
+
