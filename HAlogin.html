@@ -1,0 +1,70 @@
+<html>
+<head>
+<style>
+div.home{
+	background-color:white;
+	background-image:url("txt2.jpg");
+    color: white;
+    margin: 220px 350 20px 350;
+    padding: 20px;
+	}
+.button1 {
+    background-color:green;
+	height: 25;
+	width: 10
+   // border: none;
+    color: white;
+    padding:  5px 3px;
+    text-align: center;
+    //text-decoration: none;
+    //display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+	}
+.button2 {
+    background-color:green;
+	height: 25;
+	width: 10
+   // border: none;
+    color: white;
+    padding:  5px 3px;
+    text-align: center;
+    //text-decoration: none;
+    //display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+	}
+</style>
+</head>
+
+<body background="123.jpg">
+<div class="home">
+<center>
+<h1 style="color:red;" "margin-top:200px">Home Automation Login</h1>
+<hr />
+<h4 style="color:blue;">Login Id<input type="text" name="Username"/></h4>
+<h4 style="color:blue;">Password<input type="password" name="password"/></h4><br />
+<div class="button">
+<!--<a href="#" class="button">Link Button</a>-->
+<form>
+<input style="margin-right:-50px" type="button" onclick="check(this.form)" class="button1 button1" value="Login"/>
+<input style="margin-left:150px" class="button2 button2" type="reset" value="Cancel"/>
+</form>
+<script language="javascript">
+function check(form)/*function to check userid & password*/
+{
+/*the following code checkes whether the entered userid and password are matching*/
+if(form.Username == "sqs" && form.password == "sqs")
+{
+ window.open('target.html')/*opens the target page while Id & password matches*/
+}
+else
+{
+ alert("Error Password or Username")/*displays error message*/
+}
+}
+</script>
+</body>
+</html>
