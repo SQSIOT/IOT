@@ -1,0 +1,88 @@
+#Author: Ankit Shinde 
+#Date  : 20 Mar 2017
+
+#This Installation is done on Ubuntu 14.04 with python 3.4
+#The Moto is to install TensorFlow , OpenCV , Boost-Python , Dlib , Torch and OpenFace.
+
+1) Update and install essentials
+	sudo apt-get update
+	sudo apt-get install build-essential
+	sudo apt-get install llvm
+
+	sudo gedit /etc/apt/sources.list
+		#change
+		#deb http://us.archive.ubuntu.com/ubuntu/ xenial main restricted
+		#to
+		#deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe
+
+2) Installing the latest version of CMake
+	sudo add-apt-repository ppa:george-edison55/cmake-3.x
+	sudo apt-get update
+	sudo apt-get install cmake
+
+3) Installing Requirements and Dependencies
+	sudo apt-get install clang-3.7 libc++-dev libc++abi-dev
+	sudo apt-get install libopenblas-dev liblapack-dev
+	sudo apt-get install git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev	
+	sudo apt-get install python3-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev checkinstall
+	sudo pip install numpy
+	sudo pip install scipy	
+	sudo pip install matplotlib
+	sudo pip install pandas
+	sudo pip install scikit-learn
+	sudo pip install scikit-image
+
+4) Installation steps for OpenCV 3.1.0
+	wget https://github.com/Itseez/opencv/archive/3.1.0.zip
+	sudo unzip 3.1.0.zip
+	cd opencv-3.1.0
+	mkdir build
+	cd build/
+	cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_SHARED_LIBS=OFF ..
+	make -j4
+	sudo make install
+
+5) Installing Dlib and Boost-Python
+	sudo apt-get install libbz2-dev
+	sudo apt-get install libboost-all-dev
+	sudo pip install dlib
+
+6) Installing Torch (For nn and lua purposes)
+	# in a terminal, run the commands WITHOUT sudo
+	git clone https://github.com/torch/distro.git ~/torch --recursive
+	cd ~/torch
+
+	#clean old torch installation
+	./clean.sh
+	bash install-deps
+	./install.sh
+
+	Confirming installation of Torch
+	th
+
+	#installing Torch Packages
+	luarocks install dpnn
+	luarocks install nn
+	luarocks install optim
+	luarocks install csvigo
+	luarocks install optnet
+	luarocks install tds
+	luarocks install torchx
+	
+7) Installing OpenFace
+	git clone https://github.com/torch/torch7.git ~/OpenFace --recursive
+	cd OpenFace 
+	sudo pip setup.py install
+	
+
+8) Installing TensorFlow
+	sudo pip install tensorflow
+	
+9) finally check all the installations
+	$python3
+	>>import cv2
+	>>import dlib
+	>>import openface
+	>>import ternsorflow
+
+	#If No Error then Installation successfull
