@@ -1,0 +1,15 @@
+Using Bazel custom APT repository (recommended)
+
+1. Install JDK 8
+
+	$ sudo add-apt-repository ppa:webupd8team/java
+	$ sudo apt-get update
+	$ sudo apt-get install oracle-java8-installer
+
+2.  Download bazel, ( https://github.com/bazelbuild/bazel/releases )
+tested on: https://github.com/bazelbuild/bazel/releases/download/0.4.5/bazel-0.4.5-jdk7-installer-linux-x86_64.sh
+
+3.	$ cd to downloaded bazel path
+	$ chmod -R 777 bazel_xxx.SH
+        $ ./bazel_xxx.SH --user
+        $ export PATH="$PATH:$PATH that was in output after previous step"

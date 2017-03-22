@@ -1,0 +1,16 @@
+$ git clone https://github.com/tensorflow/tensorflow.git ~/TensorFlow
+$ cd TensorFlow
+$ ./configure
+	python 		: /usr/bin/python3
+	Optimization	: --config=opt
+	jemalloc	: Y
+	Google Cloud	: Y
+	Hadoop 		: Y
+	XLA Compiler	: Y
+	Python lib	: /usr/local/lib/python3.4/dist-package
+	OpenCL 		: N
+	Cuda		: N
+
+
+	
+	

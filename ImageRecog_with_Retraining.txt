@@ -1,0 +1,22 @@
+#Retrain Inception's Final Layer for New Categories
+
+1. For database, prepare folder structure as
+	-> root_folder_name(Emotions)
+        	-> class 1(Anger)
+            		-> file1
+            		-> file2
+        	-> class 2(Sad)
+            		-> file1
+            		-> file2
+
+2. $ cd TensorFlow
+3. $ bazel build tensorflow/examples/image_retraining:retrain && bazel-bin/tensorflow/examples/image_retraining/retrain --image_dir=/path/to/root_folder_name  --output_graph=/database/output_graph.pb --output_labels=/database/output_labels.txt --bottleneck_dir=/database/bottleneck
+
+#If the step is complete the training is completed.
+#May take upto 1 hr atleast
+
+4. For Testing use TestExample , Update the parameters in the code .
+
+
+5. place this file in home folder and run using
+	$ python3 TestExample.py
