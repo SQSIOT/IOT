@@ -1,5 +1,7 @@
 import unittest
 import time
+
+from selenium import webdriver
 import HTMLTestRunner
 
 from selenium.webdriver.common.keys import Keys
@@ -7,14 +9,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium import webdriver
 
 url = "http://audi-pilot.erwin-portal.com"
 key = "erWin"
 usr = "user1"
 pwd = "Password00"
 AUDI_VIN = "WAUZZZ8T88A001190"
-
 
 class ErwinLogin(unittest.TestCase):
 
